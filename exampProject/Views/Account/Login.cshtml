@@ -1,0 +1,24 @@
+﻿@using exampProject.Models.ViewModel
+@model LoginVM
+
+<div class="form-container">
+    <h2 class="mb-4 text-center">Login</h2>
+    <form class="mb-3" asp-controller="Account" asp-action="Login" method="POST">
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">email</label>
+            <input asp-for="Email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" class="form-control" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+</div>
+
+<div class="mt-3 text-center">
+    <a asp-action="Regester" asp-controller="Account" class="btn btn-link">ليس لدي حساب</a>
+</div>
+<div class="mt-3 text-center">
+    <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-link"> نسيت كلمة المرور</a>
+</div>

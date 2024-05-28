@@ -1,0 +1,28 @@
+﻿@model exampProject.Models.ViewModel.UserViewModel
+
+<div id="editUserModalContent" title="Edit User">
+    <form asp-action="UpdateUser" asp-controller="User" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select class="form-control" id="Role" name="Role">
+                @foreach (var dept in ViewBag.Roles)
+                {
+                    <option value="@dept.Name">@dept.Name</option>
+                }
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <button type="button" class="btn btn-secondary" onclick="$('#editUserModalContent').dialog('close');">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<exampProject.Models.Employee>
+
+<<h2>@ViewData["Title"]</h2>
+
+<h2>Employee List</h2>
+
+<button class="btn archive="><a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add Employee</a></button>
+<div class="mb-3">
+    <label for="departmentFilter" class="form-label">Filter by Department:</label>
+    <select id="departmentFilter" class="form-control" onchange="filterByDepartment()">
+        <option value="">Select Department</option>
+        @foreach (var dept in ViewBag.Departments)
+        {
+            <option value="@dept.Id">@dept.Name</option>
+        }
+    </select>
+
+
+</div>
+
+<table class="table" id="employeesTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.Partial("_EmployeeTableRows", Model)
+    </tbody>
+</table>
+
+
+@section Scripts {
+
+    <script>
+        function filterByDepartment() {
+            var departmentId = $('#departmentFilter').val();
+            $.ajax({
+                url: '@Url.Action("Filter", "Employee")',
+                type: 'GET',
+                data: { departmentId: departmentId },
+                success: function (data) {
+                    $('#employeesTable tbody').html(data);
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
+    </script>
+
+
+}

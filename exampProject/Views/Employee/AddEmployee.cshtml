@@ -1,0 +1,44 @@
+﻿@model exampProject.Models.Employee
+
+<form id="addEmployeeExperiment">
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" class="form-control" id="Name" name="Name" required>
+    </div>
+    <div class="form-group">
+        <label>Department:</label>
+        <select class="form-control" id="DepartmentId" name="DepartmentId">
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <option value="@dept.Id">@dept.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#addEmployeeExperiment').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize(); // Correctly serialize form data
+
+                $.ajax({
+                    url: '@Url.Action("AddEmployee", "Employee")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (result) {
+                        alert('Employee added successfully!');
+                        window.location.href = '@Url.Action("AllEmployee", "Employee")'; // Redirect to Index page
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error adding employee: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+}

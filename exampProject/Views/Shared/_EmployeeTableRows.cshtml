@@ -1,0 +1,14 @@
+﻿@model IEnumerable<exampProject.Models.Employee>
+
+@foreach (var employee in Model)
+{
+    <tr>
+        <td>@employee.Id</td>
+        <td>@employee.Name</td>
+        <td>@employee.Department.Name</td>
+        <td>
+            <a href="@Url.Action("Edit", "Employee", new { id = employee.Id })" class="btn btn-primary">Edit</a>
+            <button onclick="deleteEmployee('@employee.Id')" class="btn btn-danger">Delete</button>
+        </td>
+    </tr>
+}
